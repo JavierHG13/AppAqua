@@ -52,38 +52,51 @@ function AuthTabs() {
                 }}
             />
 
-            {isAuthenticated ? (
-                <>
-                    <Tabs.Screen
-                        name="dashboard"
-                        options={{
-                            title: 'Dashboard',
-                            tabBarIcon: ({ color, size }) => (
-                                <FontAwesome name="dashboard" color={color} size={size} />
-                            )
-                        }}
-                    />
-                    <Tabs.Screen
-                        name="profile"
-                        options={{
-                            title: 'Perfil',
-                            tabBarIcon: ({ color, size }) => (
-                                <FontAwesome name="user" color={color} size={size} />
-                            )
-                        }}
-                    />
-                </>
-            ) : (
-                <Tabs.Screen
-                    name="auth"
-                    options={{
-                        title: 'Login',
-                        tabBarIcon: ({ color, size }) => (
-                            <FontAwesome name="sign-in" color={color} size={size} />
-                        )
-                    }}
-                />
-            )}
+
+            <Tabs.Screen
+                name="carrito"
+                options={{
+                    href: null,
+                    title: 'Carrito',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="shopping-bag" color={color} size={size} />
+                    ),
+                }}
+            />
+
+
+            <Tabs.Screen
+                name="dashboard"
+                options={{
+                    href: isAuthenticated ? undefined : null,
+                    title: 'Dashboard',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="dashboard" color={color} size={size} />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name="perfil"
+                options={{
+                    href: isAuthenticated ? undefined : null,
+                    title: 'Perfil',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="user" color={color} size={size} />
+                    )
+                }}
+            />
+
+            <Tabs.Screen
+                name="auth"
+                options={{
+                    href: isAuthenticated ? null : undefined,
+                    title: 'Login',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="sign-in" color={color} size={size} />
+                    )
+                }}
+            />
+
         </Tabs>
     );
 }

@@ -1,12 +1,12 @@
-import { Stack } from 'expo-router';
+import { Stack } from "expo-router";
 
-export default function HomeStack() {
+export default function  CarritoStack() {
     return (
         <Stack screenOptions={{ headerShown: false }}>
-            
+
             <Stack.Screen
                 name="index"
-                options={{ title: 'Pantalla de ejemplo' }}
+                options={{ title: 'carrito de compras' }}
             />
         </Stack>
     );

@@ -19,7 +19,7 @@ function Header() {
   };
 
   const handlePress = (screen: string) => {
-   
+    router.navigate(screen)
     setMenuVisible(false); // Cerrar el menú después de navegar
   };
 
@@ -38,22 +38,22 @@ function Header() {
         <View style={styles.menuOverlay}>
           <View style={styles.menu}>
 
-            <TouchableOpacity onPress={() => handlePress('Home')}>
+            <TouchableOpacity onPress={() => handlePress('/home')}>
               <Text style={styles.menuItem}>Inicio</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.navigate('/productos')}>
+            <TouchableOpacity onPress={() => handlePress('/productos')}>
               <Text style={styles.menuItem}>Productos</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.navigate('/cartShop')}>
+            <TouchableOpacity onPress={() => handlePress('/carrito')}>
               <Text style={styles.menuItem}>Carrito</Text>
             </TouchableOpacity>
 
             {isAuthenticated ? (
               <>
-                <TouchableOpacity onPress={() => handlePress('Dashboard')}>
+                <TouchableOpacity onPress={() => handlePress('/dashboard')}>
                   <Text style={styles.menuItem}>Dashboard</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handlePress('Profile')}>
+                <TouchableOpacity onPress={() => handlePress('/perfil')}>
                   <Text style={styles.menuItem}>Perfil</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleLogout}>
@@ -61,7 +61,7 @@ function Header() {
                 </TouchableOpacity>
               </>
             ) : (
-              <TouchableOpacity onPress={() => handlePress('Login')}>
+              <TouchableOpacity onPress={() => handlePress('/auth')}>
                 <Text style={styles.menuItem}>Iniciar sesión</Text>
               </TouchableOpacity>
             )}
@@ -81,7 +81,7 @@ function Header() {
           />
         </View>
 
-        <TouchableOpacity onPress={() => handlePress('CartShop')}>
+        <TouchableOpacity onPress={() => handlePress('/carrito')}>
           <FontAwesome name="shopping-cart" size={28} color="white" />
         </TouchableOpacity>
       </View>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     top: 60, // Ajusta según la altura del header
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+    backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo semitransparente
     zIndex: 2, // Asegura que el menú esté por encima del contenido
   },
   menu: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
