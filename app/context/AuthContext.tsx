@@ -26,7 +26,7 @@ interface AuthContextValue {
     loginOAuth: (accessToken: string) => Promise<void>;
     logout: () => void;
     isAuthenticated: boolean;
-    errors?: string;
+    error?: string;
     hasRole: (requiredRole: UserRole) => boolean;
     updateUser: (updatedUser: User) => void;
 }
@@ -36,7 +36,7 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [errors, setErrors] = useState<string | undefined>(undefined);
+    const [error, setErrors] = useState<string | undefined>(undefined);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const router = useRouter() 
 
@@ -68,9 +68,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Función para iniciar sesión
     const login = async (credentials: { email: string; password: string }): Promise<void> => {
+        
         setLoading(true);
         try {
             const response = await api.post("/auth/login", credentials);
+
             const { token, user } = response.data;
             await AsyncStorage.setItem("jwt", token);
             setUser(user);
@@ -117,7 +119,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setUser(null);
             setIsAuthenticated(false);
 
-            router.navigate('auth')
+            router.navigate('/home')
 
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
@@ -137,17 +139,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     // Limpiar errores después de 5 segundos
     useEffect(() => {
-        if (errors) {
+        if (error) {
             const timer = setTimeout(() => {
                 setErrors(undefined);
             }, 5000);
 
             return () => clearTimeout(timer); // Limpiar el temporizador si el componente se desmonta
         }
-    }, [errors]);
+    }, [error]);
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, loginOAuth, logout, hasRole, errors, isAuthenticated, updateUser }}>
+        <AuthContext.Provider value={{ user, loading, login, loginOAuth, logout, hasRole, error, isAuthenticated, updateUser }}>
             {children}
         </AuthContext.Provider>
     );

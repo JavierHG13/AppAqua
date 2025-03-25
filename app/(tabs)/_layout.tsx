@@ -35,7 +35,7 @@ function AuthTabs() {
             <Tabs.Screen
                 name="home"
                 options={{
-                    title: 'Principal',
+                    title: 'Inicio',
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome name="home" color={color} size={size} />
                     ),

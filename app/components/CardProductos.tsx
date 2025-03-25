@@ -20,10 +20,12 @@ const CardProductos = (props: PropsCard) => {
   };
 
   return (
+
     <View style={styles.card}>
-      <Image
+      <Image 
         source={{ uri: props.imagen }}
         style={styles.image}
+        
       />
       <View style={styles.cardContent}>
         <Text style={styles.productName}>{props.nombre}</Text>
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150,
+    height: 200,
   },
   cardContent: {
     padding: 15,

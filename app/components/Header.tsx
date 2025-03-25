@@ -25,7 +25,7 @@ function Header() {
 
   const handleLogout = () => {
     logout();
-    setMenuVisible(false); // Cerrar el menú después de cerrar sesión
+    setMenuVisible(false);
   };
 
   return (
@@ -81,7 +81,7 @@ function Header() {
           />
         </View>
 
-        <TouchableOpacity onPress={() => handlePress('/carrito')}>
+        <TouchableOpacity onPress={() => isAuthenticated ? handlePress('/carrito') : router.navigate("/auth/login")}>
           <FontAwesome name="shopping-cart" size={28} color="white" />
         </TouchableOpacity>
       </View>

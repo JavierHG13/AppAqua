@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 import { useRouter } from 'expo-router';
 import Loader from '../../components/Loader';
 import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -15,30 +16,36 @@ interface Dispositivos {
     estado?: string;
 }
 
-export default function DashboardInicio(){
+export default function DashboardInicio() {
     const [dispositivos, setDispositivos] = useState<Dispositivos[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter()
     const { user } = useAuth();
 
     // Obtener todos los dispositivos pertenecientes a un solo usuario
-    useEffect(() => {
-        const obtenerDispositivos = async () => {
-            setLoading(true);
-            try {
-                const response = await api.get(`/dispositivos/${user?.id}`);
-                const data = response.data;
-                console.log(data)
-                setDispositivos(data);
-            } catch (error) {
-                console.error("Error al obtener dispositivos", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    useFocusEffect(
+        useCallback(() => {
+            const obtenerDispositivos = async () => {
+                setLoading(true);
+                try {
+                    const response = await api.get(`/dispositivos/${user?.id}`);
+                    const data = response.data;
+                    //console.log(data);
+                    setDispositivos(data);
+                } catch (error) {
+                    console.error("Error al obtener dispositivos", error);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-        obtenerDispositivos();
-    }, [user?.id]);
+            if (user?.id) obtenerDispositivos();
+
+            return () => {
+                setDispositivos([]);
+            };
+        }, [user?.id])
+    );
 
 
     if (loading) {
