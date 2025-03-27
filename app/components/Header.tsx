@@ -16,6 +16,9 @@ function Header() {
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
+    if (text.length > 0) {
+      router.push(`/busquedas/query/${text}`);
+    }
   };
 
   const handlePress = (screen: string) => {
@@ -75,17 +78,19 @@ function Header() {
           <TextInput
             style={styles.searchInput}
             value={searchQuery}
-            onChangeText={handleSearch}
+            onChangeText={setSearchQuery}
             placeholder="Buscar productos..."
             placeholderTextColor="#ccc"
+            returnKeyType="search" // Cambia el tipo de tecla de retorno a 'search'
+            onSubmitEditing={() => handleSearch(searchQuery)} // Llama a handleSearch cuando el usuario presiona "Enter"
           />
-        </View>
-
-        <TouchableOpacity onPress={() => isAuthenticated ? handlePress('/carrito') : router.navigate("/auth/login")}>
-          <FontAwesome name="shopping-cart" size={28} color="white" />
-        </TouchableOpacity>
       </View>
+
+      <TouchableOpacity onPress={() => isAuthenticated ? handlePress('/carrito') : router.navigate("/auth/login")}>
+        <FontAwesome name="shopping-cart" size={28} color="white" />
+      </TouchableOpacity>
     </View>
+    </View >
   );
 }
 

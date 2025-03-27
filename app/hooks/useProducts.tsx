@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from 'expo-router';
 import api from '../services/axios';
 
 interface Product {
@@ -20,22 +21,23 @@ const useProducts = () => {
     const [error, setError] = useState<string | null>(null);
 
     //Cargar todos los productos
-    useEffect(() => {
-        const fetchProducts = async () => {
+    useFocusEffect(
+        useCallback(() => {
+          const fetchProducts = async () => {
             try {
-                const { data } = await api.get<Product[]>('/productos');
-
-                setProducts(data);
+              const { data } = await api.get<Product[]>('/productos');
+              setProducts(data);
             } catch (err) {
-                console.error('Error al cargar los productos:', err);
-                setError('Error al cargar los productos');
+              console.error('Error al cargar los productos:', err);
+              setError('Error al cargar los productos');
             } finally {
-                setLoading(false);
+              setLoading(false);
             }
-        };
-
-        fetchProducts();
-    }, []);
+          };
+      
+          fetchProducts();
+        }, [])
+      );
 
     // Obtener un producto por ID
     const getProductById = async (id: string): Promise<Product | null> => {

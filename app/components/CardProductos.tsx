@@ -21,12 +21,9 @@ const CardProductos = (props: PropsCard) => {
 
   return (
 
-    <View style={styles.card}>
-      <Image 
-        source={{ uri: props.imagen }}
-        style={styles.image}
-        
-      />
+    <TouchableOpacity style={styles.card} onPress={() => router.push(`productos/detalles/${props._id}`)}>
+      <Image source={{ uri: props.imagen }} style={styles.image} />
+
       <View style={styles.cardContent}>
         <Text style={styles.productName}>{props.nombre}</Text>
         <Text style={styles.productPrice}>Precio: {props.precio}</Text>
@@ -45,7 +42,7 @@ const CardProductos = (props: PropsCard) => {
           <Text style={styles.buttonText}>Agregar</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -62,6 +59,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
+    margin: 16
   },
   image: {
     width: '100%',

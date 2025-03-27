@@ -13,6 +13,11 @@ export default function ProductosStack() {
                 name="detalles/[id]"
                 options={{ title: 'Detalle del producto' }}
             />
+
+            <Stack.Screen
+                name="categoria/[categoria]"
+                options={{ title: 'Detalle del producto' }}
+            />
         </Stack>
     );
 }

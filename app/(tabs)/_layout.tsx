@@ -64,6 +64,17 @@ function AuthTabs() {
                 }}
             />
 
+            <Tabs.Screen
+                name="busquedas"
+                options={{
+                    href: null,
+                    title: 'Bus',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="shopping-bag" color={color} size={size} />
+                    ),
+                }}
+            />
+
 
             <Tabs.Screen
                 name="dashboard"

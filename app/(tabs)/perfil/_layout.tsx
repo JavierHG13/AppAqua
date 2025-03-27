@@ -10,10 +10,9 @@ export default function PerfilStack() {
             />
 
             <Stack.Screen
-                name="ajustes-perfil"
-                options={{ title: 'Ajustes Peril' }}
+                name="editar"
+                options={{ title: 'Editar perfil' }}
             />
-
         </Stack>
     );
 }

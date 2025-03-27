@@ -1,6 +1,6 @@
 // src/screens/HomeScreen.tsx
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, Dimensions, useWindowDimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, useWindowDimensions } from 'react-native';
 import { Text, Card, Button, useTheme, Surface } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -9,22 +9,6 @@ import { useRouter } from 'expo-router';
 export default function Home() {
   const theme = useTheme();
   const router = useRouter();
-  const { width } = useWindowDimensions();
-
-  const isTablet = width > 768;
-
-  const getCardWidth = () => {
-    if (width > 1024) return '30%';
-    if (width > 768) return '45%';
-    return '100%';
-  };
-
-  const getCategoryWidth = () => {
-    if (width > 1024) return '16%';
-    if (width > 768) return '30%';
-    if (width > 480) return '30%';
-    return '45%';
-  };
 
   const styles = StyleSheet.create({
     container: {
@@ -38,30 +22,27 @@ export default function Home() {
       paddingHorizontal: 16,
       paddingTop: 16,
       paddingBottom: 8,
-      backgroundColor: theme.colors.primary,
+      backgroundColor: '#6BB1FF',
     },
     welcomeTitle: {
-      fontSize: isTablet ? 36 : 28,
+      fontSize: 28,
       fontWeight: 'bold',
       color: theme.colors.onPrimary,
       marginBottom: 4,
     },
     subtitle: {
-      fontSize: isTablet ? 18 : 16,
+      fontSize: 16,
       color: theme.colors.onPrimary,
       marginBottom: 16,
     },
     cardsContainer: {
       padding: 16,
-      flexDirection: isTablet ? 'row' : 'column',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
     },
     card: {
       marginBottom: 16,
       backgroundColor: theme.colors.surface,
       elevation: 2,
-      width: isTablet ? getCardWidth() : '100%',
+      width: '100%',
       borderRadius: 12,
     },
     cardCover: {
@@ -81,7 +62,7 @@ export default function Home() {
       paddingHorizontal: 16,
     },
     sectionTitle: {
-      fontSize: isTablet ? 24 : 20,
+      fontSize: 20,
       fontWeight: 'bold',
       marginBottom: 12,
       color: theme.colors.onSurface,
@@ -92,7 +73,7 @@ export default function Home() {
       justifyContent: 'space-between',
     },
     categoryCard: {
-      width: getCategoryWidth(),
+      width: '45%',
       padding: 12,
       alignItems: 'center',
       borderRadius: 8,
@@ -114,67 +95,67 @@ export default function Home() {
       marginVertical: 16,
       borderRadius: 8,
       overflow: 'hidden',
-      height: isTablet ? 120 : 100,
+      height: 100,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: theme.colors.secondaryContainer,
+      backgroundColor: '#D4E7FF',
     },
     promotionText: {
       color: theme.colors.onSecondaryContainer,
-      fontSize: isTablet ? 22 : 18,
+      fontSize: 18,
       fontWeight: 'bold',
     },
   });
 
   const featuredCategories = [
-    { id: '1', name: 'Semillas', icon: '🌱' },
-    { id: '2', name: 'Herramientas', icon: '🔧' },
-    { id: '3', name: 'Fertilizantes', icon: '🧪' },
-    { id: '4', name: 'IoT', icon: '📱' },
-    { id: '5', name: 'Maquinaria', icon: '🚜' },
-    { id: '6', name: 'Riego', icon: '💧' },
+    { id: '1', name: 'Alimentos', icon: '🍤' },
+    { id: '2', name: 'Filtros', icon: '💧' },
+    { id: '3', name: 'Iluminación', icon: '💡' },
+    { id: '4', name: 'Peceras', icon: '🐠' },
+    { id: '5', name: 'Automatización', icon: '🤖' },
+    { id: '6', name: 'Decoración', icon: '🌿' },
   ];
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={['left', 'right']}> 
       <StatusBar style="auto" />
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.welcomeTitle}>Bienvenido a App</Text>
-          <Text style={styles.subtitle}>Tu tienda especializada en acuarios</Text>
+          <Text style={styles.welcomeTitle}>Bienvenido a AquaSmart</Text>
+          <Text style={styles.subtitle}>Todo para tu pecera automatizada</Text>
         </View>
 
         <Surface style={styles.promotionBanner}>
-          <Text style={styles.promotionText}>20% DESCUENTO EN TU PRIMERA COMPRA</Text>
+          <Text style={styles.promotionText}>20% DESCUENTO EN ALIMENTO PREMIUM</Text>
         </Surface>
 
-        {/*<View style={styles.categorySection}>
-          <Text style={styles.sectionTitle}>Explora por categoría</Text>
+        <View style={styles.categorySection}>
+          <Text style={styles.sectionTitle}>Categorías</Text>
           <View style={styles.categoriesContainer}>
             {featuredCategories.map((category) => (
               <Surface
                 key={category.id}
                 style={styles.categoryCard}
-                onTouchEnd={() => router.push(/category/${category.id})}
+                onTouchEnd={() => router.push(`/productos/categoria/${category.name}`)}
               >
                 <Text style={styles.categoryIcon}>{category.icon}</Text>
                 <Text style={styles.categoryName}>{category.name}</Text>
               </Surface>
             ))}
           </View>
-        </View>*/}
+        </View>
 
         <View style={styles.cardsContainer}>
           <Text style={[styles.sectionTitle, { width: '100%' }]}>Productos destacados</Text>
 
           <Card style={styles.card} onPress={() => router.push('/productos')}>
             <Card.Cover
-              source={{ uri: 'https://picsum.photos/700' }}
+              source={{ uri: 'https://images.unsplash.com/photo-159777694d3c-2d2c4e71c1a3' }}
               style={styles.cardCover}
             />
             <Card.Content style={{ paddingVertical: 12 }}>
-              <Text style={styles.cardTitle}>Sistemas IoT para Cultivos</Text>
-              <Text>Monitorea y controla tus cultivos con la última tecnología</Text>
+              <Text style={styles.cardTitle}>Kit de Automatización</Text>
+              <Text>Controla temperatura, iluminación y alimentación desde tu móvil</Text>
             </Card.Content>
             <Card.Actions>
               <Button mode="outlined">Ver más</Button>
@@ -184,35 +165,18 @@ export default function Home() {
 
           <Card style={styles.card} onPress={() => router.push('/productos')}>
             <Card.Cover
-              source={{ uri: 'https://picsum.photos/701' }}
+              source={{ uri: 'https://images.unsplash.com/photo-1578916043269-53d5dfe9e4a9' }}
               style={styles.cardCover}
             />
             <Card.Content style={{ paddingVertical: 12 }}>
-              <Text style={styles.cardTitle}>Nuevos fertilizantes orgánicos</Text>
-              <Text>Mejora el rendimiento de tus cultivos de forma sostenible</Text>
+              <Text style={styles.cardTitle}>Alimento para Peces Tropicales</Text>
+              <Text>Fórmula enriquecida con vitaminas y minerales</Text>
             </Card.Content>
             <Card.Actions>
               <Button mode="outlined">Ver más</Button>
               <Button mode="contained">Comprar</Button>
             </Card.Actions>
           </Card>
-
-          {isTablet && (
-            <Card style={styles.card} onPress={() => router.push('/productos')}>
-              <Card.Cover
-                source={{ uri: 'https://picsum.photos/702' }}
-                style={styles.cardCover}
-              />
-              <Card.Content style={{ paddingVertical: 12 }}>
-                <Text style={styles.cardTitle}>Herramientas Premium</Text>
-                <Text>Equípate con lo mejor para tu trabajo diario</Text>
-              </Card.Content>
-              <Card.Actions>
-                <Button mode="outlined">Ver más</Button>
-                <Button mode="contained">Comprar</Button>
-              </Card.Actions>
-            </Card>
-          )}
         </View>
       </ScrollView>
     </SafeAreaView>
