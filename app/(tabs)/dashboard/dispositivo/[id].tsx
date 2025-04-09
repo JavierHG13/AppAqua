@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator
 import Loader from '../../../components/Loader';
 import api from '../../../services/axios';
 import { useLocalSearchParams } from 'expo-router';
-
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 interface Datos {
     _id: string;
     macAddress: string;
@@ -19,13 +19,14 @@ interface Datos {
             calidadAgua: string; // Buena, Excelente, Óptima, Necesita Cambio
             comidaRestante: number;
             EstadoBomba: number;
+            EstadoRestante: string,
             fecha: string;
         }
     ];
 }
 
-export default function DsipositivoDashboard(){
-    
+export default function DsipositivoDashboard() {
+
     const route = useRoute();
     const { id } = useLocalSearchParams();
     const [datos, setDatos] = useState<Datos>();
@@ -112,22 +113,10 @@ export default function DsipositivoDashboard(){
                         </View>
                         <View style={styles.cardContent}>
                             <Text style={styles.cardStatistic}>
-                                {datos?.mediciones[0].comidaRestante ?? 0}
-                                <Text style={styles.suffix}>%</Text>
+                                {datos?.mediciones[0].EstadoRestante ?? "Vacio"}
+                                <Text style={styles.suffix}></Text>
                             </Text>
-                            <View style={styles.progressContainer}>
-                                <View
-                                    style={[
-                                        styles.progressBar,
-                                        (datos?.mediciones[0].comidaRestante ?? 0) < 20
-                                            ? styles.exception
-                                            : (datos?.mediciones[0].comidaRestante ?? 0) < 50
-                                                ? styles.warning
-                                                : styles.success,
-                                        { width: `${datos?.mediciones[0].comidaRestante ?? 0}%` },
-                                    ]}
-                                />
-                            </View>
+
                             <TouchableOpacity
                                 style={styles.actionButton}
                                 onPress={() => datos?.macAddress && encenderAlimentador(datos.macAddress)}
@@ -143,7 +132,7 @@ export default function DsipositivoDashboard(){
                     <View style={[styles.dashboardCard, !conectado && styles.disabled]}>
                         <View style={styles.cardHeader}>
                             <View style={styles.cardTitle}>
-                                <Text style={[styles.cardIcon, styles.waterIcon]}>🌊</Text>
+                                <Text style={[styles.cardIcon, styles.waterIcon]}><FontAwesome name="tint" size={22} /></Text>
                                 <Text>Calidad del Agua</Text>
                             </View>
                         </View>
@@ -189,8 +178,7 @@ export default function DsipositivoDashboard(){
                     <View style={[styles.dashboardCard, !conectado && styles.disabled]}>
                         <View style={styles.cardHeader}>
                             <View style={styles.cardTitle}>
-                                <Text style={[styles.cardIcon, styles.temperatureIcon]}>🔥</Text>
-                                <Text>Temperatura</Text>
+                            <Text style={[styles.cardIcon, styles.temperatureIcon]}><FontAwesome name="thermometer-half" size={22} /></Text><Text>Temperatura</Text>
                             </View>
                         </View>
                         <View style={styles.cardContent}>
@@ -223,7 +211,7 @@ export default function DsipositivoDashboard(){
                     <View style={[styles.dashboardCard, !conectado && styles.disabled]}>
                         <View style={styles.cardHeader}>
                             <View style={styles.cardTitle}>
-                                <Text style={[styles.cardIcon, styles.temperatureIcon]}>🔥</Text>
+                            <MaterialCommunityIcons name="fan" size={22} color="#fa8c16" />
                                 <Text>Bomba de aire</Text>
                             </View>
                         </View>

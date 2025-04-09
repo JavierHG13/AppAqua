@@ -14,7 +14,7 @@ interface Product {
   precio: number;
   stock: number;
   categoria: string;
-  imagen: { public_id: string; url: string }[];
+  imagen?: { public_id: string; url: string }[];
   disponible: boolean;
 }
 
@@ -35,6 +35,7 @@ const ProductosScreen: React.FC = () => {
       setPrecio('');
     }, [])
   );
+  
 
   useEffect(() => {
     setLoading(true);
@@ -51,6 +52,7 @@ const ProductosScreen: React.FC = () => {
         }
 
         const { data } = await api.get<Product[]>(endpoint);
+        
         setProducts(data);
       } catch (err) {
         console.error('Error al cargar los productos:', err);
@@ -91,7 +93,7 @@ const ProductosScreen: React.FC = () => {
               nombre={item.nombre}
               descripcion={item.descripcion}
               precio={item.precio}
-              imagen={item.imagen[0].url}
+              imagen={item.imagen?.[0]?.url || ''}
               disponible={item.disponible}
             />
           )}

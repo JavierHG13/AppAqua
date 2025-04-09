@@ -121,7 +121,7 @@ export default function Home() {
       <StatusBar style="auto" />
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.welcomeTitle}>Bienvenido a AquaSmart</Text>
+          <Text style={styles.welcomeTitle}>Bienvenido a AquaControl</Text>
           <Text style={styles.subtitle}>Todo para tu pecera automatizada</Text>
         </View>
 

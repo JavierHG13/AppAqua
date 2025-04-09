@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 interface formData {
   nombre: string;
@@ -244,7 +245,7 @@ const RegistroScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => console.log('Ir a Login')}>
+      <TouchableOpacity onPress={() => router.replace('/auth/login')}>
         <Text style={styles.link}>¿Ya tienes cuenta? Iniciar sesión</Text>
       </TouchableOpacity>
     </ScrollView>
